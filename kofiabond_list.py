@@ -107,7 +107,7 @@ for i, row in tqdm(enumerate(combo_list)):
 
     # ■■■ 엑셀다운로드 클릭
     driver.find_element_by_xpath('//*[@id="imgExcel"]').click()
-    time.sleep(30)  # 다운로드시간 기다림
+    time.sleep(60)  # 다운로드시간 기다림
 
     orgPath = 'C:\\Users\\Administrator\\Downloads\\'
     chgPath = 'C:\\▶02.기타\\01.python관련\\04.채권관련\\'

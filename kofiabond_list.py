@@ -1,5 +1,17 @@
 
 ############################################################################
+'''
+파이썬(Python) - 파일_이동_복사_삭제_폴더검색
+https://angel-breath.tistory.com/12
+'''
+import os
+import shutil
+
+def changeFilePathName(orgPath, chgPath, orgName, chgName):
+    print(orgPath + orgName, '=>', chgPath + chgName)
+    shutil.move(orgPath + orgName, chgPath + chgName)
+
+############################################################################
 from selenium import webdriver
 import time
 
@@ -66,20 +78,42 @@ from selenium.webdriver.support.select import Select
 # ■■■ 잔존기간 선택
 # source = driver.find_element_by_id('selectbox2_input_0')
 source = driver.find_element_by_xpath('//*[@id="selectbox2_input_0"]')
-print('source =', source.text)
+# print('source.text =', source.text)
 
+# 콤보값 list로 저장
+option_elms = source.find_elements_by_tag_name('option')
+# print('option_elms =', option_elms)
+combo_list = []
+for elm in option_elms:
+    # print('elm =', elm)
+    if elm.text != '전체':
+        combo_list.append(elm.text)
+
+print('combo_list = ', combo_list)
+
+# 콤보 선택
 select = Select(source)
-print('select = ', select)
-# select.select_by_value("3개월")  # Select option value
-select.select_by_visible_text("3개월")  # select visible text
 
+from tqdm import tqdm
+for i, row in tqdm(enumerate(combo_list)):
+    print('{arg1} row = {arg2}'.format(arg1=i,arg2=row))
+    # select.select_by_value("3개월")  # Select option value
+    # select.select_by_visible_text("3개월")  # select visible text
+    select.select_by_visible_text(row)  # select visible text
 
-# ■■■ 조회버튼 클릭
-driver.find_element_by_xpath('//*[@id="image21"]').click()
-time.sleep(20)
+    # ■■■ 조회버튼 클릭
+    driver.find_element_by_xpath('//*[@id="image21"]').click()
+    time.sleep(20)  # 조회시간 기다림
 
-# ■■■ 엑셀다운로드 클릭
-driver.find_element_by_xpath('//*[@id="imgExcel"]').click()
+    # ■■■ 엑셀다운로드 클릭
+    driver.find_element_by_xpath('//*[@id="imgExcel"]').click()
+    time.sleep(30)  # 다운로드시간 기다림
+
+    orgPath = 'C:\\Users\\Administrator\\Downloads\\'
+    chgPath = 'C:\\▶02.기타\\01.python관련\\04.채권관련\\'
+    orgName = '종목별 발행정보.xls'
+    chgName = '종목별 발행정보_' + row + '.xls'
+    changeFilePathName(orgPath, chgPath, orgName, chgName)
 
 
 # driver.close()

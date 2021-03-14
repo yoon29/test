@@ -109,8 +109,8 @@ for i, row in tqdm(enumerate(combo_list)):
     driver.find_element_by_xpath('//*[@id="imgExcel"]').click()
     time.sleep(60)  # 다운로드시간 기다림
 
-    orgPath = 'C:\\Users\\Administrator\\Downloads\\'
-    chgPath = 'C:\\▶02.기타\\01.python관련\\04.채권관련\\'
+    orgPath = 'C:\\Users\\yoon29\\Downloads\\'
+    chgPath = 'C:\\PycharmProjects\\test\\download\\'
     orgName = '종목별 발행정보.xls'
     chgName = '종목별 발행정보_' + row + '.xls'
     changeFilePathName(orgPath, chgPath, orgName, chgName)

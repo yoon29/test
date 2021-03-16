@@ -40,3 +40,4 @@ df['결과'] = confirm_closure(df)
 print(df)
 
 
+
